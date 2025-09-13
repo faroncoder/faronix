@@ -42,4 +42,6 @@ Faronix is a shell-native, manifest-driven developer kernel that declaratively s
   
 - Fully declarative: no boilerplate needed
 
-  
+--------------------
+
+
