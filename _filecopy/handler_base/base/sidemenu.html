@@ -1,0 +1,117 @@
+{% load static %}
+
+
+
+{% block sidemenu %}
+
+<div id="layoutSidenav_nav">
+
+    <nav class="sidenav shadow-right sidenav-light">
+        <div class="sidenav-menu">
+            <div class="nav accordion" id="accordionSidenav">
+                <!-- Sidenav Menu Heading (Account)-->
+                <!-- * * Note: * * Visible only on and above the sm breakpoint-->
+                <!-- Sidenav Menu Heading (Account) -->
+                <!-- Sidenav Menu Heading -->
+                <div class="sidenav-menu-heading">Your Account</div>
+
+                <!-- Static Links (outside accordion) -->
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fas fa-bell"></i></div>
+                    Alerts
+                </a>
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fas fa-envelope"></i></div>
+                    Messages
+                </a>
+
+
+
+                <script src="{% static 'js/menu-builder.js' %}"></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        initSidebar('{% static "js/menu-builder.json" %}');
+                    });
+                </script>
+
+
+
+
+
+
+
+
+
+            </div> <!-- Sidenav Accordion (Tables) -->
+        </div> <!-- Sidenav Menu -->
+        <!-- Sidenav Footer-->
+        <div class="sidenav-footer">
+            <div class="sidenav-footer-content">
+                <div class="sidenav-footer-subtitle">Logged in as:</div>
+                <div class="sidenav-footer-title">{{ user.username }}</div>
+            </div>
+        </div>
+
+        <!-- Drawer backdrop -->
+
+    </nav>
+
+    {% endblock %}
+
+    {% block extra_js %}
+    <script type="text/javascript">
+        document.body.addEventListener('htmx:afterOnLoad', function (e) {
+            var trig = e.detail.xhr.getResponseHeader && e.detail.xhr.getResponseHeader('HX-Trigger');
+            if (!trig) return;
+            try { var data = JSON.parse(trig); } catch { return; }
+
+            if (data.loggedIn) {
+                // 1) populate the sidemenu now that we're authenticated
+                htmx.ajax('GET', "{% url 'core:sidemenu' %}", { target: '#sidemenu', swap: 'innerHTML' });
+
+                // 2) load the page the login flow asked for (optional)
+                if (data.loggedIn.next) {
+                    htmx.ajax('GET', data.loggedIn.next, { target: '.main-content', swap: 'innerHTML' });
+                }
+            }
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        function setDrawer(open) {
+            const sidemenu = document.getElementById('sidemenu');
+            const backdrop = document.getElementById('sidemenu-backdrop');
+
+            if (open) {
+                sidemenu.classList.add('open');
+                backdrop.classList.add('show');
+            } else {
+                sidemenu.classList.remove('open');
+                backdrop.classList.remove('show');
+            }
+        }
+
+        function toggleDrawer() {
+            const sidemenu = document.getElementById('sidemenu');
+            const isOpen = sidemenu?.classList.contains('open');
+            setDrawer(!isOpen);
+        }
+
+        function closeDrawer() {
+            setDrawer(false);
+        }
+
+        // Optional: allow ESC key to close the drawer
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeDrawer();
+            }
+        });
+    </script>
+
+
+
+
+
+    {% endblock %}

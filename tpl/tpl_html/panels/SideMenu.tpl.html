@@ -1,0 +1,48 @@
+{% macro render_menu_items(items) %}
+  {% for item in items %}
+    {% set has_children = item.items is defined and item.items|length > 0 %}
+    {% set collapse_id = "collapse" ~ item.id %}
+    
+    {% if has_children %}
+      <a class="nav-link collapsed"
+         href="javascript:void(0);"
+         data-bs-toggle="collapse"
+         data-bs-target="#{{ collapse_id }}"
+         aria-expanded="false"
+         aria-controls="{{ collapse_id }}">
+        <div class="nav-link-icon"><i class="{{ item.icon or 'fas fa-folder' }}"></i></div>
+        {{ item.title }}
+        <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+      </a>
+      <div class="collapse" id="{{ collapse_id }}" data-bs-parent="#accordionSidenav">
+        <nav class="sidenav-menu-nested nav">
+          {{ render_menu_items(item.items) }}
+        </nav>
+      </div>
+    {% else %}
+      <a class="nav-link"
+         hx-get="{{ item['data-url'] }}"
+         hx-target="{{ item['data-target'] or '.main-content' }}"
+         hx-trigger="click"
+         hx-params="none"
+         hx-swap="innerHTML"
+         hx-push-url="false"
+         data-item-id="{{ item.id }}">
+        <div class="nav-link-icon"><i class="{{ item.icon or 'fas fa-link' }}"></i></div>
+        {{ item.title }}
+        {% if item.badge %}
+          <span class="badge {{ item.badge.class }} ms-auto">{{ item.badge.text }}</span>
+        {% endif %}
+      </a>
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+
+<nav class="sidenav-menu">
+  <div class="nav accordion" id="accordionSidenav">
+    {% for section in sidebar.sidebar %}
+      <div class="sidenav-menu-heading">{{ section.heading }}</div>
+      {{ render_menu_items(section.items) }}
+    {% endfor %}
+  </div>
+</nav>

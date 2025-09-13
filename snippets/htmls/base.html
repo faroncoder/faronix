@@ -1,0 +1,651 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content />
+  <meta name="author" content />
+  <title>{% block titlename %}{% endblock %}</title>
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/loader.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'css/sbpro_styles.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'css/login.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link type="text/css" rel="stylesheet" href="{% static 'css/default.css' %}" />
+  <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}" />
+  <script type="text/javascript" src="{% static 'js/htmx.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+
+
+
+  {% block headcss %}{% endblock %}
+
+</head>
+
+<body class="{% if is_lti %}is-lti{% endif %}">
+
+
+  <div id="global-loader" class="loader-overlay" style="display:none;">
+    <img src="{% static 'img/bars.svg' %}" alt="Loading..." class="loader" />
+  </div>
+
+
+  <!-- <script type="text/javascript" src="{% static 'js/loader.js' %}"></script> -->
+
+
+  
+  <header id="topnav" class="topnav">
+    <nav id="navStick" class="navbar logobar   navbar-marketing navbar-expand-lg fixed-top navbar-light"
+      role="navigation" aria-label="Main">
+      <div class="container px-3">
+        <a class="navbar-brand d-flex align-items-center" href="/" style="height: 100px;">
+          <img src="{% static 'img/logodefault.png' %}" alt="Logo" style="height: 210px; margin-top: 75px; width: auto; max-width: 220px;" />
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i data-feather="menu"></i>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <!-- Left: Primary and Community nav -->
+            <div class="d-flex align-items-center">
+
+
+              {% block nav_menusite %}
+              <ul class="navbar-nav me-2" id="primary-nav" hx-get="{% url 'core:nav_menusite' %}" hx-trigger="load"
+                hx-target="#primary-nav" hx-swap="innerHTML">
+                <!-- Example static item -->
+                <!-- <li class="nav-item">
+                                    <a class="nav-link fw-bold text-black" href="/">{{ company.name|default:company|default:"Home" }}</a>
+                                </li> -->
+              </ul>
+              {% endblock %}
+              {% block community_nav %}
+              <ul class="navbar-nav me-2" id="community-nav" hx-get="{% url 'core:nav_comm' %}" hx-trigger="load"
+                hx-target="#community-nav" hx-swap="innerHTML">
+                <!-- Community nav items loaded here -->
+              </ul>
+              {% endblock %}
+            </div>
+            <!-- Right: Auth block -->
+            <ul class="navbar-nav ms-auto">
+              {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="fas fa-user me-1"></i> {{ user.username }}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li>
+                    <a class="dropdown-item" hx-get="{% url 'core:profile' %}" hx-target=".main-content"
+                      hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">
+                      <i class="fas fa-user-circle me-1"></i> Profile
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'core:logout' %}">
+                      <i class="fas fa-sign-out-alt me-1"></i> Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a id="nav_login" class="nav-link btn btn-link px-3 py-2" href="javascript:void(0);"
+                  hx-get="{% url 'core:loginaccess' %}" hx-trigger="click" hx-push-url="false" hx-target=".main-content"
+                  hx-swap="innerHTML">
+                  <i class="fas fa-sign-in-alt me-1"></i> Login
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+
+
+
+      </div>
+    </nav>
+  </header>
+
+
+
+{% if user.is_authenticated %}
+  
+
+  <!-- Drawer -->
+  <div class="sidemenu-drawer" id="sidemenu">
+    <!-- Move this OUTSIDE the HTMX-loaded content -->
+    <div class="drawer-tab" id="drawer-tab-toggle" onclick="toggleDrawer()">
+      <span class="drawer-icon" id="drawer-icon">&#9776;</span>
+    </div>
+
+
+    <!-- Only this part should be HTMX loaded -->
+    <div id="layoutSidenav_content" hx-get="{% url 'core:sidemenu' %}" hx-target="#layoutSidenav_content"
+      hx-trigger="load" hx-swap="innerHTML" hx-push-url="false">
+    </div>
+    <!-- Backdrop -->
+
+  </div>
+  <div class="sidemenu-backdrop" id="sidemenu-backdrop" onclick="closeDrawer()"></div>
+
+
+
+{% endif %} 
+
+
+
+
+
+
+  <main class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+
+          <div class="main-content">
+            {% block dynamic_content %}
+            <div id="{{ content_id|default:'main-content' }}" hx-get="{{ hx_get|default:'' }}"
+              hx-trigger="{{ hx_trigger|default:'load' }}" hx-target="{{ hx_target|default:'.main-content' }}"
+              hx-swap="{{ hx_swap|default:'innerHTML' }}" hx-push-url="{{ hx_push_url|default:'false' }}" role="region"
+              aria-live="polite" aria-busy="true">
+              <img alt="Loading..." class="loader htmx-settling htmx-indicator" src="{% static 'img/bars.svg' %}"
+                role="status" aria-label="Loading content" />
+            </div>
+
+            {% endblock %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  </div> <!-- ./layoutDefault_content -->
+  </div> <!-- ./layoutDefault -->
+
+  <div id="footer_placeholder" class="footer" hx-get="{% url 'core:footer' %}" hx-trigger="load"
+    hx-target="#footer_placeholder" hx-swap="innerHTML"></div>
+
+
+
+  <!-- Global Bootstrap Modal (single instance, static in DOM) -->
+  <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- htmx will swap content here -->
+      </div>
+    </div>
+  </div>
+
+  {% block htmxmodal %}
+  <!-- Only load modal content via htmx, not the modal container -->
+  <div hx-get="{% url 'core:modal' %}" hx-trigger="click" hx-target="#modal .modal-content" hx-swap="innerHTML">
+  </div>
+  {% endblock %}
+
+
+
+
+
+  <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/all.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/aos.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/loader_images.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/htmx_helper.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/scripts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/html_debugging.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/footer_expand.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/htmx_clear_main.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/sbpro_scripts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/toasts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/toast_htmx.js' %}"></script>
+
+  <script type="text/javascript" src="{% static 'js/debugging.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/open_close_drawersidemenu.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/base_system.js' %}"></script>
+
+  <script type="text/javascript">
+
+    (function () {
+
+
+      // ---- config ----
+      var SHOW_DELAY = 120;   // don't flash on super-fast requests
+      var MIN_VISIBLE = 200;  // keep loader up for at least this long (ms)
+      var FADE_MS = 400;  // match your CSS transition
+
+      // ---- state ----
+      var pending = 0;
+      var showTimer = null;
+      var visibleSince = 0;
+
+      var holds = 0;
+      function hold()   { holds++; }
+      function release(){
+        if (holds > 0) holds--;
+        // if no holds and no pending requests, allow hide now
+        if (holds === 0 && pending === 0) {
+          var elapsed = now() - visibleSince;
+          var wait = Math.max(0, MIN_VISIBLE - elapsed);
+          setTimeout(hideLoader, wait);
+        }
+      }
+
+      window.hxLoader = { hold: hold, release: release };
+
+      function now() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+
+      function getLoader() { return document.getElementById('global-loader'); }
+
+      function reallyShow() {
+        var loader = getLoader();
+        if (!loader) return;
+        loader.style.display = 'flex';
+        // force reflow so CSS transitions apply
+        void loader.offsetWidth;
+        loader.classList.remove('fade-out');
+        loader.classList.add('fade-in');
+        visibleSince = now();
+      }
+
+      function requestStarted() {
+        pending++;
+        if (pending === 1) {
+          clearTimeout(showTimer);
+          showTimer = setTimeout(reallyShow, SHOW_DELAY);
+        }
+      }
+
+      function hideLoader() {
+        var loader = getLoader();
+        if (!loader) return;
+        loader.classList.remove('fade-in');
+        loader.classList.add('fade-out');
+        setTimeout(function () {
+          // only hide if nothing else started since we scheduled this
+          if (pending === 0) {
+            loader.style.display = 'none';
+            loader.classList.remove('fade-out');
+          }
+        }, FADE_MS);
+      }
+
+      function requestFinished() {
+        if (pending > 0) pending--;
+        if (pending === 0) {
+          clearTimeout(showTimer);
+          var elapsed = now() - visibleSince;
+          var wait = Math.max(0, MIN_VISIBLE - elapsed);
+          setTimeout(hideLoader, wait);
+        }
+      }
+
+      // ---- HTMX hooks ----
+
+      // One place for CSRF header + "request started"
+      document.body.addEventListener('htmx:configRequest', function (e) {
+        // CSRF header
+        var token =
+          document.querySelector('input[name=csrfmiddlewaretoken]')?.value ||
+          document.querySelector('meta[name="csrf-token"]')?.content;
+        if (token) e.detail.headers['X-CSRFToken'] = token;
+
+        requestStarted();
+      });
+
+      // Fires after every request completes (success or error), even if nothing was swapped
+      document.body.addEventListener('htmx:afterRequest', function () {
+        requestFinished();
+      });
+    })();
+
+  </script>
+
+
+  {% block extra_js %}{% endblock %}
+
+<script>
+document.body.addEventListener('htmx:afterSwap', function (e) {
+  // animate only when we swapped the account tab area
+  if (!e.detail.target || !e.detail.target.matches('.tabloader')) return;
+  var child = e.detail.target.firstElementChild;   // root of the new partial
+  if (!child) return;
+  child.classList.add('tab-fly-in');
+  // remove class after the animation so it can re-trigger next time
+  setTimeout(function(){ child.classList.remove('tab-fly-in'); }, 300);
+});
+</script>
+
+
+  {% comment %} this is for development only. remove below script when deploying to production {% endcomment %}
+
+  <script>
+    (function () {
+      // ---- toggle ----
+      const KEY = 'hxlog';
+      const isOn = () => localStorage.getItem(KEY) === '1';
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'l') {
+          localStorage.setItem(KEY, isOn() ? '0' : '1');
+          console.info('HTMX debug %s', isOn() ? 'ON' : 'OFF');
+        }
+      });
+
+      // ---- boot logger ----
+      function boot() {
+        if (!window.htmx) { console.warn('[hxlog] htmx not found'); return; }
+        if (!isOn()) return;
+
+        // Basic built-in logger (prints event names)
+        try { htmx.logAll(); } catch (_) { }
+
+        // Rich logger
+        const events = [
+          // request lifecycle
+          'htmx:configRequest', 'htmx:beforeRequest', 'htmx:send',
+          'htmx:beforeSwap', 'htmx:afterSwap', 'htmx:afterRequest', 'htmx:responseError',
+          // load lifecycle
+          'htmx:beforeOnLoad', 'htmx:afterOnLoad', 'htmx:load',
+          // misc
+          'htmx:historyRestore', 'htmx:historyCacheMiss',
+          'htmx:beforeCleanupElement', 'htmx:confirm',
+          'htmx:validation:validate', 'htmx:validation:failed'
+        ];
+
+        const t0 = new WeakMap(); // xhr -> start time
+        const color = (n) => /error/i.test(n) ? 'color:#e53935' : 'color:#03a9f4';
+        const now = () => (performance && performance.now) ? performance.now() : Date.now();
+
+        // give each request a client ID so you can correlate logs (optional)
+        document.body.addEventListener('htmx:configRequest', (e) => {
+          // Add CSRF here too if you want—already in your app’s handler
+          const id = 'hx-' + Math.random().toString(36).slice(2, 8) + '-' + Date.now().toString(36);
+          (e.detail.requestConfig.headers ||= {})['X-Request-ID'] = id;
+          e.detail.__hxReqId = id;
+        });
+
+        // Start timer when xhr exists
+        document.body.addEventListener('htmx:beforeRequest', (e) => {
+          if (e.detail?.xhr) t0.set(e.detail.xhr, now());
+        });
+
+        // Log everything nicely
+        events.forEach((name) => {
+          document.body.addEventListener(name, (e) => {
+            if (!isOn()) return;
+
+            const d = e.detail || {};
+            const cfg = d.requestConfig || {};
+            const verb = (cfg.verb || 'GET').toUpperCase();
+            const path = cfg.path || '(unknown)';
+            const started = d.xhr && t0.has(d.xhr) ? t0.get(d.xhr) : null;
+            const dur = started != null ? (now() - started) : null;
+
+            console.groupCollapsed(
+              `%c${name}%c ${verb} ${path}${dur != null ? `  +${Math.round(dur)}ms` : ''}`,
+              `${color(name)};font-weight:bold`, 'color:#999'
+            );
+            try {
+              console.log('event:', name);
+              console.log('trigger elt:', d.elt || e.target);
+              console.log('target:', d.target);
+              if (d.parameters) { console.log('parameters:'); console.table(d.parameters); }
+              if (cfg.headers) { console.log('request headers:'); console.table(cfg.headers); }
+              if (d.pathInfo) console.log('pathInfo:', d.pathInfo);
+              if (d.errors) console.log('validation errors:', d.errors);
+
+              if (d.xhr) {
+                const hdrs = {};
+                ['HX-Trigger', 'HX-Redirect', 'HX-Push-Url', 'HX-Replace-Url', 'Content-Type', 'X-Request-ID']
+                  .forEach(h => { const v = d.xhr.getResponseHeader?.(h); if (v) hdrs[h] = v; });
+                console.log('status:', d.xhr.status);
+                if (Object.keys(hdrs).length) console.log('response headers:', hdrs);
+
+                // small response preview
+                const body = d.xhr.responseText || '';
+                if (body.length) {
+                  const sample = body.length > 600 ? body.slice(0, 600) + ' …(+)' : body;
+                  console.log('response sample:', sample);
+                }
+              }
+            } finally { console.groupEnd(); }
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+    })();
+  </script>
+  <script>
+    (function () {
+      // ---------- config ----------
+      var SHOW_DELAY = 120;   // don't flash loader on very fast calls
+      var MIN_VISIBLE = 200;   // keep it visible briefly once shown
+      var FADE_MS = 400;   // match your CSS transition
+
+      // disable global loader for specific requests:
+      // e.g. <button data-no-global-loader hx-get="/ping">Ping</button>
+      var NO_LOADER_SELECTOR = '[data-no-global-loader]';
+
+      // Treat these HTTP codes specially
+      var AUTH_CODES = new Set([401]);  // unauth -> show login partial in place
+      var CSRF_CODES = new Set([403, 419]); // CSRF/session issues (framework-dependent)
+      var RETRY_GET_ON = new Set([502, 503, 504]); // optional auto-retry for GETs
+
+      // ---------- state ----------
+      var pending = 0;
+      var showTimer = null;
+      var visibleSince = 0;
+      var t0 = new WeakMap();        // xhr -> start time
+      var skipForElt = new WeakMap();// elt -> boolean (skip loader)
+      var retrying = new WeakSet();  // xhrs we've retried already (avoid loops)
+
+      function now() { return (performance && performance.now) ? performance.now() : Date.now(); }
+      function loaderEl() { return document.getElementById('global-loader'); }
+
+      function reallyShow() {
+        var el = loaderEl(); if (!el) return;
+        el.style.display = 'flex';
+        void el.offsetWidth; // reflow so transition applies
+        el.classList.remove('fade-out');
+        el.classList.add('fade-in');
+        visibleSince = now();
+      }
+
+      function requestStarted(elt) {
+        // skip loader for marked elements
+        var skip = !!(elt && elt.closest(NO_LOADER_SELECTOR));
+        if (elt) skipForElt.set(elt, skip);
+
+        if (!skip) {
+          pending++;
+          if (pending === 1) {
+            clearTimeout(showTimer);
+            showTimer = setTimeout(reallyShow, SHOW_DELAY);
+          }
+        }
+      }
+
+      function hideLoader() {
+        var el = loaderEl(); if (!el) return;
+        el.classList.remove('fade-in');
+        el.classList.add('fade-out');
+        setTimeout(function () {
+          if (pending === 0) {
+            el.style.display = 'none';
+            el.classList.remove('fade-out');
+          }
+        }, FADE_MS);
+      }
+
+      function requestFinished(elt) {
+        var skip = !!(elt && skipForElt.get(elt));
+        if (!skip && pending > 0) pending--;
+        if (pending === 0) {
+          clearTimeout(showTimer);
+          var elapsed = now() - visibleSince;
+          var wait = Math.max(0, MIN_VISIBLE - elapsed);
+          setTimeout(hideLoader, wait);
+        }
+      }
+
+      // ---------- helpers ----------
+      function getHeader(xhr, name) {
+        try { return xhr.getResponseHeader && xhr.getResponseHeader(name); } catch (_) { return null; }
+      }
+
+      // Optional: idempotent GET auto-retry with small backoff when server is busy
+      function maybeRetryGET(e) {
+        var xhr = e.detail.xhr;
+        var cfg = e.detail.requestConfig || {};
+        var elt = cfg.elt;
+        var verb = (cfg.verb || 'GET').toUpperCase();
+
+        if (verb !== 'GET') return false;
+        if (!RETRY_GET_ON.has(xhr.status)) return false;
+        if (retrying.has(xhr)) return false; // Already retried once
+
+        retrying.add(xhr);
+        // simple backoff 200–500ms
+        var backoff = 200 + Math.floor(Math.random() * 300);
+        setTimeout(function () {
+          // re-issue the same request config via htmx.ajax
+          // use the same path/headers/target/swap
+          try {
+            htmx.ajax(verb, cfg.path, {
+              target: e.detail.target,
+              swap: cfg.swapStyle || 'innerHTML',
+              headers: cfg.headers || {}
+            });
+          } catch (_) { /* swallow */ }
+        }, backoff);
+        return true;
+      }
+
+      // ---------- HTMX hooks ----------
+      // Add CSRF + mark start
+      document.body.addEventListener('htmx:configRequest', function (e) {
+        try {
+          var token =
+            document.querySelector('input[name=csrfmiddlewaretoken]')?.value ||
+            document.querySelector('meta[name="csrf-token"]')?.content;
+          if (token) e.detail.headers['X-CSRFToken'] = token;
+        } catch (_) { /* ignore */ }
+
+        // Correlate requests if you want server pairing
+        try {
+          // Only set if not already present (client logger may have set it)
+          if (!e.detail.requestConfig.headers?.['X-Request-ID']) {
+            var rid = 'hx-' + Math.random().toString(36).slice(2, 8) + '-' + Date.now().toString(36);
+            (e.detail.requestConfig.headers ||= {})['X-Request-ID'] = rid;
+          }
+        } catch (_) { }
+
+        requestStarted(e.detail.elt);
+      });
+
+      // Timer start (works even if no swap occurs)
+      document.body.addEventListener('htmx:beforeRequest', function (e) {
+        if (e.detail?.xhr) t0.set(e.detail.xhr, now());
+      });
+
+      // Handle aborts/timeouts explicitly (keep counter accurate)
+      document.body.addEventListener('htmx:abort', function (e) {
+        requestFinished(e.detail.elt);
+      });
+      document.body.addEventListener('htmx:timeout', function (e) {
+        requestFinished(e.detail.elt);
+      });
+
+      // Always runs at the end (success or error, swap or not)
+      document.body.addEventListener('htmx:afterRequest', function (e) {
+        try {
+          var xhr = e.detail.xhr;
+          var cfg = e.detail.requestConfig || {};
+          var elt = cfg.elt;
+          var status = xhr.status || 0;
+
+          // Auto-retry idempotent GETs on transient server errors
+          if (maybeRetryGET(e)) return; // don't finish yet; retry will manage loader
+
+          // Auth/CSRF handling: if your server returns 401 with login partial,
+          // HTMX will have swapped it in place already. You can also sniff and
+          // take extra actions here if desired.
+          if (AUTH_CODES.has(status)) {
+            // Example: focus first field in the injected login form
+            var f = document.querySelector('.login form input, form [name=username]');
+            if (f) try { f.focus(); } catch (_) { }
+          }
+          if (CSRF_CODES.has(status)) {
+            console.warn('CSRF/session issue detected; status=', status);
+            // optional: toast or force a fresh login panel via HX trigger
+          }
+
+          // Observe HX-Redirect without changing URL yourself (htmx will handle it)
+          var hxredir = getHeader(xhr, 'HX-Redirect');
+          if (hxredir) {
+            // If you want to keep the URL bar unchanged, you should generally avoid
+            // sending HX-Redirect from the server for HTMX flows. Your middleware
+            // already converts auth redirects to HX-Redirect (to /login/).
+            // Nothing to do here; just let htmx act.
+          }
+
+          // Duration / metrics (optional)
+          var start = t0.get(xhr);
+          if (start != null) {
+            var ms = Math.round(now() - start);
+            // console.debug('HTMX request finished in', ms, 'ms', cfg.path);
+          }
+        } finally {
+          // Always finish bookkeeping
+          requestFinished(e.detail.requestConfig?.elt);
+        }
+      });
+
+      // Safety nets: if something restores history or swaps a big container,
+      // ensure loader cannot get stuck
+      document.body.addEventListener('htmx:historyRestore', function () {
+        if (pending === 0) hideLoader();
+      });
+    })();
+  </script>
+
+  <!-- Toast container (Bootstrap 5) -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+    <div id="globalToast" class="toast align-items-center text-white bg-primary border-0" role="alert"
+      aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+      <div class="d-flex">
+        <div class="toast-body" id="globalToastBody">
+          <!-- Toast message will appear here -->
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</body>
+
+</html>

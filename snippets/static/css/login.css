@@ -1,0 +1,59 @@
+.login {
+    width: 95% !important;
+}
+
+.login-card {
+    max-width: 400px;
+    margin: 5vh auto;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(44, 123, 226, 0.15);
+    padding: 2.5rem 2rem 2rem 2rem;
+}
+
+.login-card .form-control {
+    border-radius: 0.5rem;
+}
+
+.login-card .btn-primary {
+    background: #2c7be2;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.login-card .btn-primary:hover {
+    background: #1a5fbd;
+}
+
+.login-card .logo {
+    width: 60px;
+    margin-bottom: 1rem;
+}
+
+.register-card {
+    max-width: 440px;
+    margin: 5vh auto;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(44, 123, 226, 0.15);
+    padding: 2.5rem 2rem 2rem 2rem;
+}
+
+.register-card .form-control {
+    border-radius: 0.5rem;
+}
+
+.register-card .btn-primary {
+    background: #2c7be2;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.register-card .btn-primary:hover {
+    background: #1a5fbd;
+}
+
+.register-card .logo {
+    width: 60px;
+    margin-bottom: 1rem;
+}

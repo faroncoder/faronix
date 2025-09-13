@@ -1,0 +1,5 @@
+{% load static %}
+<!-- Badge.tpl.html -->
+<span class="badge {{ badge.color|default:'bg-primary text-white' }} {{ badge.extra_class|default:'' }}">
+  {{ badge.text|default:'Badge' }}
+</span>

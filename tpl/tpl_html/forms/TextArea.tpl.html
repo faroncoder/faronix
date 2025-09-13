@@ -1,0 +1,11 @@
+{% load static %}
+<!-- TextArea.tpl.html -->
+<div class="mb-3">
+  <label for="{{ field.name }}" class="form-label">{{ field.label }}</label>
+  <textarea class="form-control"
+            id="{{ field.name }}"
+            name="{{ field.name }}"
+            rows="{{ field.rows|default:4 }}"
+            {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
+            {% if field.required is not defined or field.required %}required{% endif %}>{{ field.value|default:"" }}</textarea>
+</div>

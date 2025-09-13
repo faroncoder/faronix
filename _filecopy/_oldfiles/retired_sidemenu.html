@@ -1,0 +1,305 @@
+{% load static %}
+
+
+
+{% block sidemenu %}
+
+<div id="layoutSidenav_nav">
+
+    <nav class="sidenav shadow-right sidenav-light">
+        <div class="sidenav-menu">
+            <div class="nav accordion" id="accordionSidenav">
+                <!-- Sidenav Menu Heading (Account)-->
+                <!-- * * Note: * * Visible only on and above the sm breakpoint-->
+                <!-- Sidenav Menu Heading (Account) -->
+                <!-- Sidenav Menu Heading -->
+                <div class="sidenav-menu-heading">Your Account</div>
+
+                <!-- Static Links (outside accordion) -->
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fas fa-bell"></i></div>
+                    Alerts
+                </a>
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fas fa-envelope"></i></div>
+                    Messages
+                </a>
+
+                <!-- Sidenav Accordion (Account Management) -->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                    data-bs-target="#managementCollapseAccount" aria-expanded="false"
+                    aria-controls="managementCollapseAccount">
+                    <div class="nav-link-icon"><i class="fas fa-user-cog"></i></div>
+                    Account Management
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+
+                <div class="collapse" id="managementCollapseAccount" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav">
+
+                        <a class="nav-link" data-nav-group="account" data-tab="profile"
+                            hx-get="{% url 'core:accountview' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"profile"}' hx-trigger="click" hx-params="none" hx-swap="innerHTML"
+                            hx-push-url="false">Profile</a>
+
+                        <a class="nav-link" data-nav-group="account" data-tab="billing"
+                            hx-get="{% url 'core:accountview' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"billing"}' hx-params="none" hx-trigger="click" hx-swap="innerHTML"
+                            hx-push-url="false">Billing</a>
+
+                        <a class="nav-link" data-nav-group="account" data-tab="security"
+                            hx-get="{% url 'core:accountview' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"security"}' hx-params="none" hx-trigger="click" hx-swap="innerHTML"
+                            hx-push-url="false">Security</a>
+
+                        <a class="nav-link" data-nav-group="account" data-tab="notifications"
+                            hx-get="{% url 'core:accountview' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"notifications"}' hx-params="none" hx-trigger="click"
+                            hx-swap="innerHTML" hx-push-url="false">Notifications</a>
+
+
+                    </nav>
+                </div>
+
+
+                <div class="sidenav-menu-heading">Admin</div>
+
+                <div class="sidenav-menu-heading">Admin Management</div>
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fas fa-bell"></i></div>
+                    Admin Alerts
+                </a>
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fas fa-envelope"></i></div>
+                    Admin Messages
+                </a>
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                    data-bs-target="#managementCollapseAdmin" aria-expanded="false"
+                    aria-controls="managementCollapseAdmin">
+                    <div class="nav-link-icon"><i class="fas fa-user-cog"></i></div>
+                    Admin Management
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="managementCollapseAdmin" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav">
+                        <a class="nav-link" data-nav-group="admin" data-tab="dashboard"
+                            hx-get="{% url 'core:admin_management' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"dashboard", "X-Partial":"1"}' hx-trigger="click" hx-params="none" hx-swap="innerHTML" hx-push-url="false">
+                            <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+                        </a>
+                        <a class="nav-link" data-nav-group="admin" data-tab="users"
+                            hx-get="{% url 'core:admin_management' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"users", "X-Partial":"1"}' hx-trigger="click" hx-params="none" hx-swap="innerHTML" hx-push-url="false">
+                            <i class="fas fa-users"></i> Manage Users
+                        </a>
+                        <a class="nav-link" data-nav-group="admin" data-tab="pages"
+                            hx-get="{% url 'core:admin_management' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"pages", "X-Partial":"1"}' hx-trigger="click" hx-params="none" hx-swap="innerHTML" hx-push-url="false">
+                            <i class="fas fa-file-alt"></i> Manage Pages
+                        </a>
+                        <a class="nav-link" data-nav-group="admin" data-tab="approvals"
+                            hx-get="{% url 'core:admin_management' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"approvals", "X-Partial":"1"}' hx-trigger="click" hx-params="none" hx-swap="innerHTML" hx-push-url="false">
+                            <i class="fas fa-check-circle"></i> Approvals
+                        </a>
+                        <a class="nav-link" data-nav-group="admin" data-tab="rbac"
+                            hx-get="{% url 'core:admin_management' %}" hx-target=".main-content"
+                            hx-headers='{"X-Tab":"rbac", "X-Partial":"1"}' hx-trigger="click" hx-params="none" hx-swap="innerHTML" hx-push-url="false">
+                            <i class="fas fa-user-shield"></i> RBAC Dashboard
+                        </a>
+                    </nav>
+                </div>
+
+                <div class="sidenav-menu-heading">Services</div>
+
+                <!-- Sidenav Accordion (Knowledgebase & Library) -->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                    data-bs-target="#kblibraryCollapseAccount" aria-expanded="false"
+                    aria-controls="kblibraryCollapseAccount">
+                    <div class="nav-link-icon"><i class="fas fa-user-cog"></i></div>
+                    Knowledgebase & Library
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+
+                <div class="collapse" id="kblibraryCollapseAccount" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav">
+
+                        <a class="nav-link" data-nav-group="kbase" data-tab="main" hx-get="{% url 'core:kbview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"main"}' hx-trigger="click" hx-params="none"
+                            hx-swap="innerHTML" hx-push-url="false">Main</a>
+
+                        <a class="nav-link" data-nav-group="kbase" data-tab="search" hx-get="{% url 'core:kbview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"search"}' hx-params="none"
+                            hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">Search</a>
+
+                        <a class="nav-link" data-nav-group="kbase" data-tab="category" hx-get="{% url 'core:kbview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"category"}' hx-params="none"
+                            hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">Category</a>
+
+                        <a class="nav-link" data-nav-group="kbase" data-tab="article" hx-get="{% url 'core:kbview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"article"}' hx-params="none"
+                            hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">Article</a>
+
+                        <a class="nav-link" data-nav-group="kbase" data-tab="mysearch" hx-get="{% url 'core:kbview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"mysearch"}' hx-params="none"
+                            hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">My Search</a>
+
+
+                        <a class="nav-link" data-nav-group="kbase" data-tab="digital" hx-get="{% url 'core:kbview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"digital"}' hx-params="none"
+                            hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">Digital</a>
+
+
+
+                        <a class="nav-link" data-nav-group="kbase" data-tab="resources" hx-get="{% url 'core:kbview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"resources"}' hx-params="none"
+                            hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">Resources</a>
+
+
+
+                    </nav>
+                </div>
+
+                <!-- Sidenav Heading (Addons)-->
+                <div class="sidenav-menu-heading">News and Announcements</div>
+                <!-- Sidenav Link (Charts)-->
+                <a class="nav-link" data-nav-group="blog" data-tab="news" hx-get="{% url 'core:blogview' %}"
+                    hx-target=".main-content" hx-headers='{"X-Tab":"overview"}' hx-params="none" hx-trigger="click"
+                    hx-swap="innerHTML" hx-push-url="false">News</a>
+                <!-- Sidenav Link (Tables)-->
+
+            </div> <!-- Sidenav Accordion (Tables) -->
+
+
+            <div class="nav accordion" id="accordionSidenav">
+
+                <!-- Sidenav Menu Heading -->
+                <div class="sidenav-menu-heading">Admin Management</div>
+
+                <!-- Static Links (outside accordion) -->
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fas fa-bell"></i></div>
+                    Admin Alerts
+                </a>
+                <a class="nav-link" href="#">
+                    <div class="nav-link-icon"><i class="fas fa-envelope"></i></div>
+                    Admin Messages
+                </a>
+
+                <!-- Sidenav Accordion (Admin Management) -->
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse"
+                    data-bs-target="#managementCollapseAdmin" aria-expanded="false"
+                    aria-controls="managementCollapseAdmin">
+                    <div class="nav-link-icon"><i class="fas fa-user-cog"></i></div>
+                    Admin Management
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+
+                <div class="collapse" id="managementCollapseAdmin" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav">
+
+                        <a class="nav-link" data-nav-group="blog" data-tab="overview" hx-get="{% url 'core:blogview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"overview"}' hx-trigger="click"
+                            hx-params="none" hx-swap="innerHTML" hx-push-url="false">Overview</a>
+
+                        <a class="nav-link" data-nav-group="blog" data-tab="post" hx-get="{% url 'core:blogview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"post"}' hx-trigger="click" hx-params="none"
+                            hx-swap="innerHTML" hx-push-url="false">Post</a>
+
+                        <a class="nav-link" data-nav-group="blog" data-tab="edit" hx-get="{% url 'core:blogview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"edit"}' hx-params="none" hx-trigger="click"
+                            hx-swap="innerHTML" hx-push-url="false">Edit</a>
+
+                        <a class="nav-link" data-nav-group="blog" data-tab="admin" hx-get="{% url 'core:blogview' %}"
+                            hx-target=".main-content" hx-headers='{"X-Tab":"admin"}' hx-params="none" hx-trigger="click"
+                            hx-swap="innerHTML" hx-push-url="false">Admin</a>
+
+
+
+                    </nav>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            </div> <!-- Sidenav Accordion (Tables) -->
+        </div> <!-- Sidenav Menu -->
+        <!-- Sidenav Footer-->
+        <div class="sidenav-footer">
+            <div class="sidenav-footer-content">
+                <div class="sidenav-footer-subtitle">Logged in as:</div>
+                <div class="sidenav-footer-title">{{ user.username }}</div>
+            </div>
+        </div>
+
+        <!-- Drawer backdrop -->
+
+    </nav>
+
+    {% endblock %}
+
+    {% block extra_js %}
+    <script type="text/javascript">
+        document.body.addEventListener('htmx:afterOnLoad', function (e) {
+            var trig = e.detail.xhr.getResponseHeader && e.detail.xhr.getResponseHeader('HX-Trigger');
+            if (!trig) return;
+            try { var data = JSON.parse(trig); } catch { return; }
+
+            if (data.loggedIn) {
+                // 1) populate the sidemenu now that we're authenticated
+                htmx.ajax('GET', "{% url 'core:sidemenu' %}", { target: '#sidemenu', swap: 'innerHTML' });
+
+                // 2) load the page the login flow asked for (optional)
+                if (data.loggedIn.next) {
+                    htmx.ajax('GET', data.loggedIn.next, { target: '.main-content', swap: 'innerHTML' });
+                }
+            }
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        function setDrawer(open) {
+            const sidemenu = document.getElementById('sidemenu');
+            const backdrop = document.getElementById('sidemenu-backdrop');
+
+            if (open) {
+                sidemenu.classList.add('open');
+                backdrop.classList.add('show');
+            } else {
+                sidemenu.classList.remove('open');
+                backdrop.classList.remove('show');
+            }
+        }
+
+        function toggleDrawer() {
+            const sidemenu = document.getElementById('sidemenu');
+            const isOpen = sidemenu?.classList.contains('open');
+            setDrawer(!isOpen);
+        }
+
+        function closeDrawer() {
+            setDrawer(false);
+        }
+
+        // Optional: allow ESC key to close the drawer
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeDrawer();
+            }
+        });
+    </script>
+
+
+
+
+
+    {% endblock %}

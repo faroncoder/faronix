@@ -1,0 +1,19 @@
+/* Underline all phrases ending with ':' inside the personal data use section */
+.personal-data-use li strong:after {
+    content: '';
+    display: block;
+    border-bottom: 2px solid #2c7be2;
+    margin-top: 2px;
+}
+
+.personal-data-use li strong {
+    position: relative;
+}
+
+/* Only underline if the phrase ends with ':' */
+.personal-data-use li strong {
+    text-decoration: none;
+}
+.personal-data-use li strong:has(:last-child) {
+    text-decoration: underline;
+}

@@ -1,0 +1,19 @@
+{
+  "component": "AdminPageTable",
+  "table": {
+    "headers": ["Title", "Status", "Updated", "Actions"],
+    "rows": [
+      {
+        "title": "Home",
+        "status": true,
+        "updated_at": "2025-09-10 13:05",
+        "id": 1
+      }
+    ],
+    "hx": {
+      "edit_url": "core:page_edit_form_htmx",
+      "delete_url": "core:page_delete_htmx",
+      "reload_trigger": "pageDeleted"
+    }
+  }
+}

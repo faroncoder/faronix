@@ -1,0 +1,3 @@
+module_urlpatterns = [
+    # path("...", ...),
+]

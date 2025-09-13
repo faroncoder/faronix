@@ -1,0 +1,11 @@
+{# table_wrapper.tpl.html — wrapper that renders DataTable + Pager #}
+
+<div id="{{ table.id or 'tableArea' }}">
+  {# main table content #}
+  {% include "tpl/tables/DataTable.tpl.html" with table=table %}
+
+  {# pagination bar #}
+  {% if pagination %}
+    {% include "tpl/widgets/Pager.tpl.html" %}
+  {% endif %}
+</div>

@@ -1,0 +1,133 @@
+{
+  "generated_at": 1757737346,
+  "root": "/home/faron/app_pwa/builder/tpl/tpl_html",
+  "categories": [
+    "html/alerts",
+    "html/display",
+    "html/forms",
+    "html/io",
+    "html/layout",
+    "html/modals",
+    "html/panels",
+    "html/tables",
+    "html/widgets",
+    "py/form_class.tpl.py",
+    "py/hx.helps.tpl.py",
+    "py/model_class.tpl.py",
+    "py/repo.tpl.py",
+    "py/seed.tpl.py",
+    "py/table_wrapper.tpl.py",
+    "py/urls_autogen.tpl.py",
+    "py/urls_base.tpl.py",
+    "py/urls_include.tpl.py",
+    "py/urls_template.tpl.py",
+    "py/view_template.tpl.py",
+    "py/views_base.tpl.py",
+    "py/webhook_wrapper.tpl.py"
+  ],
+  "components": {
+    "html/widgets": [
+      "ChartArea.tpl",
+      "Invoice.tpl",
+      "Pager.tpl",
+      "RichTextEditor.tpl"
+    ],
+    "html/modals": [
+      "CheckboxField.tpl",
+      "FormModal.tpl",
+      "Modal.tpl",
+      "Toast.tpl"
+    ],
+    "html/forms": [
+      "CheckboxField.tpl",
+      "Dropdown.tpl",
+      "form_modal.tpl",
+      "HiddenField.tpl",
+      "RadioGroup.tpl",
+      "RangeField.tpl",
+      "SelectField.tpl",
+      "TextArea.tpl",
+      "TextField.tpl",
+      "TimerangeSlider.tpl"
+    ],
+    "html/io": [
+      "FileUpload.tpl",
+      "Progress.tpl",
+      "Timeline.tpl",
+      "Uploader.tpl"
+    ],
+    "html/display": [
+      "Card.tpl",
+      "GridRow.tpl",
+      "SidebarBlock.tpl"
+    ],
+    "html/layout": [
+      "base_from_json.tpl",
+      "Footer.tpl",
+      "Head.tpl",
+      "MainContent.tpl",
+      "NavTop.tpl",
+      "SideMenu.tpl"
+    ],
+    "html/alerts": [
+      "Alert.tpl",
+      "Badger.tpl",
+      "TopTip.tpl"
+    ],
+    "html/panels": [
+      "FormTemplate.tpl",
+      "HeroPanel.tpl",
+      "SectionPanel.tpl",
+      "SecureElement.tpl",
+      "SideMenu.tpl",
+      "Stepper.tpl",
+      "TabbedPanel.tpl",
+      "TabNav.tpl"
+    ],
+    "html/tables": [
+      "AdminPageTable.tpl",
+      "DataField.tpl",
+      "DataTable.tpl",
+      "TableWrapper.tpl"
+    ],
+    "py/table_wrapper.tpl.py": [
+      "table_wrapper.tpl"
+    ],
+    "py/webhook_wrapper.tpl.py": [
+      "webhook_wrapper.tpl"
+    ],
+    "py/seed.tpl.py": [
+      "seed.tpl"
+    ],
+    "py/urls_template.tpl.py": [
+      "urls_template.tpl"
+    ],
+    "py/form_class.tpl.py": [
+      "form_class.tpl"
+    ],
+    "py/hx.helps.tpl.py": [
+      "hx.helps.tpl"
+    ],
+    "py/urls_autogen.tpl.py": [
+      "urls_autogen.tpl"
+    ],
+    "py/model_class.tpl.py": [
+      "model_class.tpl"
+    ],
+    "py/urls_include.tpl.py": [
+      "urls_include.tpl"
+    ],
+    "py/view_template.tpl.py": [
+      "view_template.tpl"
+    ],
+    "py/repo.tpl.py": [
+      "repo.tpl"
+    ],
+    "py/views_base.tpl.py": [
+      "views_base.tpl"
+    ],
+    "py/urls_base.tpl.py": [
+      "urls_base.tpl"
+    ]
+  }
+}

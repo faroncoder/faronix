@@ -1,0 +1,12 @@
+{
+  "app_label": "core",
+  "view_name": "Default",
+  "model": null,
+  "table": null,
+  "constraints": {
+    "unique_together": [],
+    "indexes": []
+  },
+  "fields": [],
+  "tabs": []
+}

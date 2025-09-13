@@ -1,0 +1,26 @@
+{% load static %}
+
+
+{% block headcss %}{% endblock %}
+
+{% block dynamic_content %}
+<div>
+    <h1>Welcome to {{ title }}</h1>
+    <p>This is the main content area for {{ title }}.</p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    /*  document.addEventListener('DOMContentLoaded', function() {
+                // page: conferences
+            });
+            
+            */
+
+    $(document).ready(function () {
+        $('#opener').fadeIn().fadeIn(1000);
+    });
+
+</script>
+{% endblock %}

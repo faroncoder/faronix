@@ -1,0 +1,50 @@
+{% load static %}
+
+
+{% block dynamic_content %}
+
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Updated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for page in pages %}
+        <tr>
+            <td>{{ page.title }}</td>
+            <td><span class="badge bg-{{ page.status|yesno:'success,danger' }}">{{ page.status }}</span></td>
+            <td>{{ page.updated_at|date:"Y-m-d H:i" }}</td>
+            <td>
+                <button class="btn btn-sm btn-outline-secondary" hx-get="{% url 'core:page_edit_form_htmx' page.id %}"
+                    hx-target="#pagesFormArea" hx-swap="innerHTML">Edit</button>
+
+                <button class="btn btn-sm btn-outline-danger" hx-post="{% url 'core:page_delete_htmx' page.id %}"
+                    hx-confirm="Delete this page?" hx-swap="none" hx-trigger="click"
+                    hx-headers='{"HX-Trigger": "pageDeleted"}'>Delete</button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center text-muted">No pages available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+# Example usage - templates/admin/_admin_pages.html
+<div id="pagesFormArea">
+    {% include 'admin/_form_card.html' with form=form title="Create New Page" hx_post=htmx_create_page_url %}
+</div>
+<hr />
+<div id="pagesTableArea" hx-get="{% url 'core:htmx_table' %}"
+    hx-trigger="pageCreated, pageUpdated, pageDeleted from:body" hx-swap="outerHTML" hx-target="this">
+    {% include 'admin/_pages_table.html' %}
+</div>
+
+{% endblock %}

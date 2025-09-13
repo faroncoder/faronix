@@ -1,0 +1,29 @@
+{%load static%}
+
+
+<li class="nav-item dropdown dropdown-xl no-caret">
+    <a class="nav-link dropdown-toggle" id="navbarDropdownPages" href="javascript:void(0);" role="button"
+        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ nameurl }}<i class="fas fa-chevron-right dropdown-arrow"></i>
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-end me-lg-n20 me-xl-n15 animated--fade-in-up"
+        aria-labelledby="navbarDropdownPages">
+        <div class="container">
+            <div class="row">
+                {% for group in groups %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <h6 class="dropdown-header text-primary">{{ group.title }}</h6>
+                    {% for item in group.items %}
+                    <a class="dropdown-item" href="javascript:void(0);" hx-get="{{ item.hx_get }}"
+                        hx-target=".main-content" hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">
+                        <i class="{{ item.fa_icon }} me-2"></i>{{ item.label }}
+                    </a>
+                    {% endfor %}
+                    <div class="dropdown-divider border-0"></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</li>

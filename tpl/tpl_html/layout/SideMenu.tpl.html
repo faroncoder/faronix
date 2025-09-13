@@ -1,0 +1,30 @@
+{% load static %}
+
+  
+
+
+{% if user.is_authenticated %}
+  
+
+  <!-- Drawer -->
+  <div class="sidemenu-drawer" id="sidemenu">
+    <!-- Move this OUTSIDE the HTMX-loaded content -->
+    <div class="drawer-tab" id="drawer-tab-toggle" onclick="toggleDrawer()">
+      <span class="drawer-icon" id="drawer-icon">&#9776;</span>
+    </div>
+
+
+    <!-- Only this part should be HTMX loaded -->
+    <div id="layoutSidenav_content" hx-get="{% url 'core:sidemenu' %}" hx-target="#layoutSidenav_content"
+      hx-trigger="load" hx-swap="innerHTML" hx-push-url="false">
+    </div>
+    <!-- Backdrop -->
+
+  </div>
+  <div class="sidemenu-backdrop" id="sidemenu-backdrop" onclick="closeDrawer()"></div>
+
+
+
+{% endif %} 
+
+

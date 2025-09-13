@@ -1,0 +1,16 @@
+<!-- tab_nav.tpl.html -->
+<nav class="nav nav-borders mb-4">
+  {% for tab in tabs %}
+    {% if user.rank >= tab.required_rank %}
+    <a class="nav-link"
+      hx-get="{{ tab.url }}"
+      hx-headers='{"X-Tab":"{{ tab.slug }}", "X-Partial":"1"}'
+      hx-target=".tabloader"
+      hx-swap="innerHTML"
+      hx-push-url="false"
+      onclick="localStorage.setItem('last_tab', '{{ tab.slug }}')">
+      {{ tab.label }}
+    </a>
+    {% endif %}
+  {% endfor %}
+</nav>

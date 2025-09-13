@@ -1,0 +1,49 @@
+{
+  "app_label": "core",
+  "view_name": "Books",
+  "model": "Book",
+  "table": "core_book",
+  "constraints": { "unique_together": [], "indexes": [] },
+  "fields": [
+    { "name": "id",         "type": "int",      "opts": "primary_key=True" },
+    { "name": "title",      "type": "text",     "opts": "max_length=200" },
+    { "name": "author",     "type": "text",     "opts": "max_length=120" },
+    { "name": "is_active",  "type": "bool",     "opts": "default=True" },
+    { "name": "updated_at", "type": "datetime", "opts": "auto_now=True" }
+  ],
+  "tabs": [
+    {
+      "slug": "list",
+      "label": "Books",
+      "required_rank": "staff",
+      "form_template": "books_form.html",
+      "fields": [
+        { "name": "title",  "type": "text", "label": "Title",  "required": true },
+        { "name": "author", "type": "text", "label": "Author", "required": true },
+        { "name": "is_active", "type": "bool", "label": "Active" }
+      ],
+      "table": {
+        "component": "DataTable.tpl",
+        "hx": {
+          "triggers": "booksCreated, booksUpdated, booksDeleted from:body",
+          "swap": "outerHTML"
+        },
+        "headers": ["Title", "Status", "Updated", "Actions"],
+        "columns": ["title", "status", "updated_at", "actions"]
+      }
+    }
+  ],
+  "webhooks": {
+    "base_url": "http://localhost:8000",
+    "headers": { "X-App": "SigaVision" },
+    "events": { "created": "/book.created", "updated": "/book.updated", "deleted": "/book.deleted" },
+    "secret": "supersecret_shared_key",
+    "timeout_sec": 3.0,
+    "max_retries": 3,
+    "backoff_initial_sec": 0.25,
+    "backoff_max_sec": 3.0,
+    "jitter_sec": 0.2,
+    "async_mode": "thread",
+    "verify_ssl": true
+  }
+}

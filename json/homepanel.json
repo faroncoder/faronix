@@ -1,0 +1,16 @@
+{
+  "view_name": "HomePanel",
+  "sidebar_heading": "Home",
+  "tabs": [
+    {
+      "slug": "main",
+      "label": "Home",
+      "hx_get": "/core/home/",
+      "hx_target": ".main-content",
+      "hx_trigger": "load",
+      "hx_swap": "innerHTML",
+      "hx_push_url": "false"
+    }
+  ],
+  "model": null
+}

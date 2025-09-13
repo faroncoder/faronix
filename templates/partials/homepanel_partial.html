@@ -1,0 +1,53 @@
+import importlib
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseForbidden
+from django.views.generic import TemplateView
+
+
+# Single-route: simple function-based view for speed & simplicity
+def homepanel(request):
+    tab = 'main'
+    required_ranks = {
+    'main': 100}
+    # rank check (authenticated + rank threshold)
+    try:
+        rank = getattr(request.user, "rank", 0)
+    except Exception:
+        rank = 0
+    if not (request.user.is_authenticated and rank >= required_ranks.get(tab, 1000)):
+        return HttpResponseForbidden("Access Denied")
+
+    # HTMX partial behavior (optional header "X-Partial": true)
+    if getattr(request, "htmx", False) and request.headers.get("X-Partial"):
+        return render(request, "main_form.html", {"tab": tab, "user": request.user})
+
+    # Optional form handling for POST
+    if request.method == "POST":
+        mod_name = f"core.forms.homepanel_{tab}_form"
+        try:
+            mod = importlib.import_module(mod_name)
+            cls_name = f"{tab.title().replace('_','')}Form"
+            form_cls = getattr(mod, cls_name)
+        except Exception:
+            form_cls = None
+
+        if form_cls is None:
+            return HttpResponse("Form not available for this route", status=400)
+
+        form = form_cls(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save() if hasattr(form, "save") else None
+            resp = render(request, "main_form.html", {"tab": tab, "user": request.user, "saved": True, "obj": obj})
+            resp["HX-Trigger"] = '{"toast": {"message": "Saved!", "type": "success"}}'
+            return resp
+        return render(request, "main_form.html", {"tab": tab, "user": request.user, "form": form})
+
+    # GET: full-page render
+    return render(request, "", {
+        "tab": tab,
+        "tab_template": "main_form.html",
+        "title": "",
+        "subtitle": "",
+        "user": request.user,
+    })
+

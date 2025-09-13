@@ -1,0 +1,100 @@
+
+{
+  // Django app that will own the generated files
+  "app_label": "core",
+
+  // Name for the module (becomes classes/filenames like "pages.py", "pages_base.py")
+  "view_name": "Pages",
+
+  // Optional DB model name; set null if this view has no DB backing yet
+  "model": "Page",
+
+  // Optional explicit db_table (else generator picks "<app_label>_<model|lower>")
+  "table": "core_page",
+
+  // Optional Django Meta constraints
+  "constraints": {
+    "unique_together": [],
+    // Example: [{"fields": ["slug"]}]
+    "indexes": []
+  },
+
+  // Top-level **model** fields (semantic types get normalized for you)
+  // Supported semantic -> Django model field map:
+  //   text->CharField, slug->SlugField, bool/boolean->BooleanField,
+  //   int/number->IntegerField, float->FloatField, date->DateField,
+  //   datetime->DateTimeField, json->JSONField, file->FileField, image->ImageField
+  "fields": [
+    { "name": "id",         "type": "int",      "opts": "primary_key=True" },
+    { "name": "title",      "type": "text",     "opts": "max_length=200" },
+    { "name": "slug",       "type": "slug",     "opts": "max_length=120, unique=True" },
+    { "name": "is_active",  "type": "bool",     "opts": "default=True" },
+    { "name": "updated_at", "type": "datetime", "opts": "auto_now=True" }
+  ],
+
+  // Tabs drive partials & forms. Each tab gets:
+  //   - a partial HTML (your "form_template")
+  //   - an optional set of UI fields (for plain Form usage)
+  //   - a role/rank requirement (normalized via ROLE_RANK)
+  "tabs": [
+    {
+      "slug": "list",
+      "label": "Pages",
+      // required_rank can be number or one of: guest/member/staff/manager/admin/superadmin
+      "required_rank": "staff",
+
+      // Name of the Django template file to generate under core/templates/
+      // The content of that file uses your runtime component library under /tpl/...
+      "form_template": "pages_form.html",
+
+      // Optional UI field descriptors if you want a non-ModelForm plain form
+      "fields": [
+        { "name": "title",  "type": "text", "label": "Title",  "required": true },
+        { "name": "slug",   "type": "text", "label": "Slug",   "required": true },
+        { "name": "is_active", "type": "bool", "label": "Active", "required": false }
+      ],
+
+      // Optional table config if you’re driving a specific component
+      // If omitted, base views still compose a generic DataTable payload for you.
+      "table": {
+        // Use your generic table component (ensure it exists in builder/tpl/tables)
+        "component": "DataTable.tpl",
+
+        // HTMX behavior for auto-refresh
+        "hx": {
+          "triggers": "pagesCreated, pagesUpdated, pagesDeleted from:body",
+          "swap": "outerHTML"
+        },
+
+        // Column headers and column keys in rows
+        "headers": ["Title", "Status", "Updated", "Actions"],
+        "columns": ["title", "status", "updated_at", "actions"]
+      }
+    }
+  ],
+
+  // Optional webhook configuration (hardened wrapper available)
+  "webhooks": {
+    // If base_url is null or missing, webhooks are no-op
+    "base_url": "http://localhost:8000",
+    // Extra headers sent with each call
+    "headers": { "X-App": "SignaVision" },
+    // Event route map appended to base_url
+    "events": {
+      "created": "/page.created",
+      "updated": "/page.updated",
+      "deleted": "/page.deleted"
+    },
+    // Security & delivery behavior
+    "secret": "supersecret_shared_key",
+    "timeout_sec": 3.0,
+    "max_retries": 4,
+    "backoff_initial_sec": 0.25,
+    "backoff_max_sec": 5.0,
+    "jitter_sec": 0.2,
+    "async_mode": "thread",          // "thread" or "sync"
+    "verify_ssl": false,
+    // (Optional) pluggable transport path if you emitted webhook_transports.py
+    // "transport": "core.views.webhook_transports:RequestsTransport"
+  }
+}

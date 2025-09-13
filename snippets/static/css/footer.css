@@ -1,0 +1,146 @@
+/* footer {
+  transition: height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.4s cubic-bezier(0.4,0,0.2,1);
+} */
+
+
+
+footer {
+  padding-top: 1rem;
+  height: 16vh;
+  width: 100%;
+  background: linear-gradient(to top,
+      rgba(0, 86, 72, 1) 0%,
+      rgba(35, 9, 77, 1) 100%);
+  margin-top: 2.5rem;
+  margin-bottom: 0; /* Remove negative margin */
+  overflow: hidden;
+  z-index: 10;
+  box-sizing: border-box; /* Prevent overflow from padding */
+}
+
+footer a, 
+footer a:focus,
+footer a:visited { 
+    color: rgb(215, 8, 1); 
+    text-decoration: none; 
+    font-weight: 500; 
+}
+
+footer a:hover { 
+    font-weight: 700;
+    text-decoration: none;
+    color: rgb(255, 255, 255) !important;
+}
+
+footer li {
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+
+
+footer a .icon-list-social-link,
+footer a:focus .icon-list-social-link,
+footer a:visited .icon-list-social-link {
+  font-size: 20px;
+  font-weight: 500;
+  color:#999594;
+}
+
+footer a:hover .icon-list-social-link {
+  font-size: 20px;
+  font-weight: 500;
+  color:#2c7be2;
+  text-align: center;
+}
+
+footer .text-uppercase-expanded {
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(9, 251, 235);
+  padding: 0;
+}
+
+
+
+
+
+footer span {
+    font-size: 8px;
+    color: #424345;
+    font-weight: 500;
+}
+
+
+footer .footnote {
+  font-size: normal;
+  color: #6c757d;
+}
+
+
+
+
+footer .nav-link {
+  color: #343a40;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  border-radius: 0.25rem;
+}
+
+
+footer .nav-link:hover,
+footer .nav-link:focus-visible {
+  background-color: rgba(44, 123, 226, 0.1);
+  color: #2c7be2;
+}
+
+
+
+footer .nav-link.active {
+  color: #fff;
+  background-color: #2c7be2;
+}
+
+footer a.btn-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #2c7be2;
+  color: #fff;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+footer a.btn-link:hover {
+  background-color: #1a5fbd;
+  text-decoration: none;
+}
+
+
+
+footer a.muted {
+  color: #6c757d;
+}
+footer a.muted:hover {
+  color: #343a40;
+}
+
+footer a.danger {
+  color: #dc3545;
+}
+footer a.danger:hover {
+  color: #a71d2a;
+}
+
+/* 
+footer a.btn-subtle {
+  color: #6c757d;
+  background: none;
+  font-weight: 500;
+}
+footer a.btn-subtle:hover {
+  text-decoration: underline;
+  color: #e22c2c;
+}
+
+ */
+

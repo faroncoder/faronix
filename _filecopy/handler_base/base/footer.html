@@ -1,0 +1,92 @@
+{% load static %}
+
+
+
+
+
+<footer id="footer" class=" bg-light footer-light">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="footnote text-center text-white mb-5 py-5 fw-bold text-sm">
+                Copyright &copy; <br /> {{ company }} <br /><span class="footnote text-center text-white mb-5 fw-bold text-sm"
+                    id="footyear"></span>
+            </div> <!-- end of footnote -->
+        </div> <!-- end of col -->
+        <div class="col-lg-2">
+            <!-- <div class="footer-brand text-lg"><strong>{{ company }}</strong></div> -->
+            <div class="mb-3 text-center text-lg"><img src="{% static 'img/logodefault.png' %}" alt="{{ company }}"
+                    height="120">
+            </div> <!-- end of footer-brand -->
+        </div> <!-- end of col -->
+
+    
+
+    
+    <div class="col-lg-7">
+        <div class="row gx-2">
+            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                <div class="text-uppercase-expanded text-medium mb-1">Company</div>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-1"><a href="javascript:void(0)">History</a></li>
+                    <li class="mb-1">
+                        <a href="javascript:void(0)">Referral</a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="javascript:void(0)">Staff and Career</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">Wish List</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                <div class="text-uppercase-expanded faronspacer text-medium mb-1">Services</div>
+                <ul class="list-unstyled mb-0">
+
+                    <li class="mb-1"><a href="javascript:void(0)">Resources</a></li>
+                    <li class="mb-1"><a href="javascript:void(0)">Training</a></li>
+                    <li class="mb-1"><a href="javascript:void(0)">Networking</a></li>
+                    <li class="mb-1"><a href="javascript:void(0)">Collaboration</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0 ">
+                <div class="text-uppercase-expanded faronspacer text-medium mb-1">Resources</div>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-1"><a href="javascript:void(0)">Digital Library</a></li>
+                    <li class="mb-1"><a href="javascript:void(0)">Online Resources</a></li>
+                    <li class="mb-1"><a href="javascript:void(0)">LMS Courses</a></li>
+                    <li><a href="javascript:void(0)">Support</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                <div class="text-uppercase-expanded faronspacer text-medium mb-1">Directive</div>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-1"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modal"
+                            hx-get="{% url 'core:privacy' %}" hx-target="#modal .modal-content" hx-trigger="click">
+                            Privacy Policy
+                        </a>
+                    </li>
+                    <li class="mb-1"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modal"
+                            hx-get="{% url 'core:terms' %}" hx-target="#modal .modal-content" hx-trigger="click">
+                            Terms & Conditions
+                        </a>
+                    </li>
+                    <li class="mb-1"><a class="icon-list-social-link text-lg" href="javascript:void(0);"
+                            data-bs-toggle="modal" data-bs-target="#modal" hx-get="{% url 'core:facebooknews' %}"
+                            hx-target="#modal .modal-content" hx-trigger="click"><i
+                                class="fab fa-facebook"></i></a>&nbsp;&nbsp; <a class="icon-list-social-link text-lg"
+                            href="javascript:void(0);"><i class="fab fa-linkedin"></i></a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1">
+        &nbsp;
+    </div>
+    </div>
+
+</footer>
+
+<script>
+    document.getElementById('footyear').textContent = new Date().getFullYear();
+</script>

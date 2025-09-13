@@ -1,0 +1,19 @@
+{% load static %}
+
+
+
+
+{% block dynamic_content %}
+<div class="base_main row">
+    <div class="col-lg-3"> &nbsp; </div>
+    <div class="col-lg-6">
+        <img class="img-fluid p-2 w-50  d-block mx-auto" src="{% static 'img/illustrations/500-internal-server-error.svg' %}" alt="..." />
+    <p class="lead">500 Internal Server Error: The server encountered an unexpected condition.</p>
+        <a class="text-arrow-icon" href="/">
+            <i class="ms-0 me-1" data-feather="arrow-left"></i>
+            Return Home
+        </a>
+    </div>
+    <div class="col-lg-3"> &nbsp; </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{
+  "app_label": "core",
+  "view_name": "Books",
+  "model": "Book",
+  "table": null,
+  "constraints": {
+    "unique_together": [
+      [
+        "slug"
+      ]
+    ],
+    "indexes": []
+  },
+  "fields": [
+    {
+      "name": "title",
+      "type": "text"
+    },
+    {
+      "name": "author",
+      "type": "text"
+    },
+    {
+      "name": "is_active",
+      "type": "bool",
+      "opts": "default=True"
+    },
+    {
+      "name": "update_at",
+      "type": "datetime",
+      "opts": "auto_now=True"
+    }
+  ],
+  "tabs": [],
+  "webhooks": {
+    "base_url": "http://localhost:8000",
+    "headers": {
+      "X-book": "sqlite3"
+    },
+    "events": null,
+    "secret": null,
+    "timeout_sec": 3.0,
+    "max_retries": 3,
+    "backoff_initial_sec": 0.25,
+    "backoff_max_sec": 5.0,
+    "jitter_sec": 0.2,
+    "async_mode": "thread",
+    "verify_ssl": false,
+    "transport": null
+  }
+}
