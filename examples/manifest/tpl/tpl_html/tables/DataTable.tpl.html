@@ -1,0 +1,35 @@
+{% load static %}
+<!-- DataTable.tpl.html -->
+<div class="card mb-4">
+  <div class="card-header">{{ table.title|default:"Data Table" }}</div>
+  <div class="card-body">
+    <table id="{{ table.id|default:'datatablesSimple' }}" class="table">
+      <thead>
+        <tr>
+          {% for header in table.headers %}<th>{{ header }}</th>{% endfor %}
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          {% for header in table.headers %}<th>{{ header }}</th>{% endfor %}
+        </tr>
+      </tfoot>
+      <tbody>
+        {% for row in table.rows %}
+        <tr>
+          {% for cell in row %}
+          <td>{{ cell }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.SimpleDataTables && document.querySelector("#{{ table.id|default:'datatablesSimple' }}")) {
+      new simpleDatatables.DataTable("#{{ table.id|default:'datatablesSimple' }}");
+    }
+  });
+</script>

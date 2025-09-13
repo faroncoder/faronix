@@ -1,0 +1,31 @@
+{% load static %}
+
+
+
+<div class="layoutDefault">
+  <div class="layoutDefault_content">
+
+  <main class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+
+          <div class="main-content">
+            {% block dynamic_content %}
+            <div id="{{ content_id|default:'main-content' }}" hx-get="{{ hx_get|default:'' }}"
+              hx-trigger="{{ hx_trigger|default:'load' }}" hx-target="{{ hx_target|default:'.main-content' }}"
+              hx-swap="{{ hx_swap|default:'innerHTML' }}" hx-push-url="{{ hx_push_url|default:'false' }}" role="region"
+              aria-live="polite" aria-busy="true">
+              <img alt="Loading..." class="loader htmx-settling htmx-indicator" src="{% static 'img/bars.svg' %}"
+                role="status" aria-label="Loading content" />
+            </div>
+
+            {% endblock %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  </div> <!-- ./layoutDefault_content -->
+  </div> <!-- ./layoutDefault -->

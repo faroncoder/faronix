@@ -1,0 +1,37 @@
+{% load static %}
+<!-- TimeRangeSlider.tpl.html -->
+<div class="mb-3">
+  <label class="form-label">{{ slider.label|default:"Select Time Range" }}</label>
+  <div class="d-flex align-items-center gap-3">
+    <input type="range" class="form-range flex-grow-1" min="{{ slider.min|default:480 }}" max="{{ slider.max|default:1260 }}"
+           step="{{ slider.interval|default:15 }}" id="rangeStart" value="{{ slider.start|default:555 }}">
+    <span>to</span>
+    <input type="range" class="form-range flex-grow-1" min="{{ slider.min|default:480 }}" max="{{ slider.max|default:1260 }}"
+           step="{{ slider.interval|default:15 }}" id="rangeEnd" value="{{ slider.end|default:660 }}">
+  </div>
+  <div class="form-text mt-2">Selected Time: <span id="timeRangeDisplay">--:-- – --:--</span></div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const rangeStart = document.getElementById("rangeStart");
+    const rangeEnd = document.getElementById("rangeEnd");
+    const display = document.getElementById("timeRangeDisplay");
+
+    function minutesToTime(mins) {
+      let h = Math.floor(mins / 60);
+      let m = mins % 60;
+      return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+    }
+
+    function updateTimeDisplay() {
+      let start = parseInt(rangeStart.value);
+      let end = parseInt(rangeEnd.value);
+      if (start > end) [start, end] = [end, start]; // auto-fix order
+      display.textContent = `${minutesToTime(start)} – ${minutesToTime(end)}`;
+    }
+
+    rangeStart.addEventListener("input", updateTimeDisplay);
+    rangeEnd.addEventListener("input", updateTimeDisplay);
+    updateTimeDisplay();
+  });
+</script>

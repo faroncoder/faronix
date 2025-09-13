@@ -1,0 +1,42 @@
+{# form_modal.tpl.html — uses /tpl form components #}
+{% comment %}
+Expected context:
+- mode: "create" | "edit"
+- field_values: [{ "name": "...", "value": "..." }, ...]
+- fields: full model field metadata from SOT (names + Django types)
+{% endcomment %}
+
+<form
+  hx-post="{{ request.path }}"
+  hx-target="#modal .modal-content"
+  hx-swap="innerHTML"
+>
+  <h5 class="mb-3">
+    {% if mode == 'edit' %}Edit {{ view_name }}{% else %}New {{ view_name }}{% endif %}
+  </h5>
+
+  <div class="vstack gap-2">
+    {% for fv in field_values %}
+      {% with name=fv.name val=fv.value %}
+        {% for f in fields %}
+          {% if f.name == name %}
+            {% if f.type in "BooleanField,NullBooleanField" %}
+              {% include "tpl/forms/CheckboxField.tpl.html" with name=name label=name|title checked=val %}
+            {% elif f.type in "TextField,CharField,SlugField,EmailField,URLField" %}
+              {% include "tpl/forms/TextField.tpl.html" with name=name label=name|title value=val %}
+            {% elif f.type in "DateField,DateTimeField" %}
+              {% include "tpl/forms/TextField.tpl.html" with name=name label=name|title value=val attrs="type='date'" %}
+            {% else %}
+              {% include "tpl/forms/TextField.tpl.html" with name=name label=name|title value=val %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endwith %}
+    {% endfor %}
+  </div>
+
+  <div class="mt-3 d-flex gap-2">
+    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+  </div>
+</form>

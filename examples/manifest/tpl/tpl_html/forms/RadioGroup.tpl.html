@@ -1,0 +1,18 @@
+{% load static %}
+<!-- RadioGroup.tpl.html -->
+<div class="mb-3">
+  <label class="form-label">{{ field.label }}</label>
+  {% for choice in field.choices %}
+    <div class="form-check">
+      <input class="form-check-input"
+             type="radio"
+             name="{{ field.name }}"
+             id="{{ field.name }}_{{ forloop.counter }}"
+             value="{{ choice }}"
+             {% if field.value == choice %}checked{% endif %}>
+      <label class="form-check-label" for="{{ field.name }}_{{ forloop.counter }}">
+        {{ choice }}
+      </label>
+    </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,21 @@
+name: Manifest Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  manifest-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run manifest test
+        run: ./test_manifest.sh

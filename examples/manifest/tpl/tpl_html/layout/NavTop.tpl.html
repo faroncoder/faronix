@@ -1,0 +1,79 @@
+{% load static %}
+  
+  <header id="topnav" class="topnav">
+    <nav id="navStick" class="navbar logobar   navbar-marketing navbar-expand-lg fixed-top navbar-light"
+      role="navigation" aria-label="Main">
+      <div class="container px-3">
+        <a class="navbar-brand d-flex align-items-center" href="/" style="height: 100px;">
+          <img src="{% static 'img/logodefault.png' %}" alt="Logo" style="height: 210px; margin-top: 75px; width: auto; max-width: 220px;" />
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i data-feather="menu"></i>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <!-- Left: Primary and Community nav -->
+            <div class="d-flex align-items-center">
+
+
+              {% block nav_menu %}
+              <ul class="navbar-nav me-2" id="primary-nav" hx-get="{% url 'core:nav_menu' %}" hx-trigger="load"
+                hx-target="#primary-nav" hx-swap="innerHTML">
+               
+
+              </ul>
+              {% endblock %}
+              {% block community_nav %}
+              <ul class="navbar-nav me-2" id="community-nav" hx-get="{% url 'core:nav_comm' %}" hx-trigger="load"
+                hx-target="#community-nav" hx-swap="innerHTML">
+              
+              </ul>
+              {% endblock %}
+            </div>
+            <!-- Right: Auth block -->
+            <ul class="navbar-nav ms-auto">
+              {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="fas fa-user me-1"></i> {{ user.username }}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li>
+                    <a class="dropdown-item" hx-get="{% url 'core:profile' %}" hx-target=".main-content"
+                      hx-trigger="click" hx-swap="innerHTML" hx-push-url="false">
+                      <i class="fas fa-user-circle me-1"></i> Profile
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'core:logout' %}">
+                      <i class="fas fa-sign-out-alt me-1"></i> Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a id="nav_login" class="nav-link btn btn-link px-3 py-2" href="javascript:void(0);"
+                  hx-get="{% url 'core:login_access' %}" hx-trigger="click" hx-push-url="false" hx-target=".main-content"
+                  hx-swap="innerHTML">
+                  <i class="fas fa-sign-in-alt me-1"></i> Login
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+
+
+
+      </div>
+    </nav>
+  </header>

@@ -1,0 +1,10 @@
+{
+  "version": "2025.09.12",
+  "last_updated": "2025-09-13T01:04:52.354405+00:00",
+  "manifests": {
+    "snippets": "/manifest/snippets.json",
+    "menu": "/manifest/menu.json",
+    "roles": "/manifest/roles.json",
+    "features": "/manifest/features.json"
+  }
+}

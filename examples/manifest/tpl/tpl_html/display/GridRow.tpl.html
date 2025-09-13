@@ -1,0 +1,9 @@
+{% load static %}
+<!-- GridRow.tpl.html -->
+<div class="row {{ row.class|default:'g-4' }}">
+  {% for col in row.columns %}
+    <div class="{{ col.width|default:'col-md-6 col-xl-3' }} {{ col.class|default:'' }}">
+      {{ col.content|safe }}
+    </div>
+  {% endfor %}
+</div>

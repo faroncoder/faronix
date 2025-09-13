@@ -1,0 +1,17 @@
+django
+django-htmx
+django-bootstrap5
+daphne
+requests
+responses
+httpx
+django-csp
+tqdm
+psycopg2-binary
+Pillow
+aiohttp
+pylti1p3
+cryptography
+channels
+jwcrypto
+

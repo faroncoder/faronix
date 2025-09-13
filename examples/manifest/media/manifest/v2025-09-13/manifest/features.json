@@ -1,0 +1,22 @@
+{
+  "features": {
+    
+    "edu_pro": [
+      "record_video", "export_transcript", "dashboard"
+    ], 
+    
+    "team": [
+      "team_dashboard", "member_invite", "audit_log"
+    ], 
+    
+    "lifetime": [
+      "record_video", "dashboard"
+    ], 
+    
+    "guest": [
+      
+    ]
+    
+  },
+  "last_updated": "2025-09-13T02:46:17.772416+00:00"
+}

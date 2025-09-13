@@ -1,0 +1,20 @@
+{% load static %}
+<!-- SidebarBlock.tpl.html -->
+<div class="accordion-item">
+  <h2 class="accordion-header" id="heading-{{ block.id }}">
+    <button class="accordion-button {{ block.collapsed|yesno:'collapsed,' }}"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse-{{ block.id }}"
+            aria-expanded="{{ not block.collapsed|default:False }}"
+            aria-controls="collapse-{{ block.id }}">
+      {{ block.title|default:'Sidebar Block' }}
+    </button>
+  </h2>
+  <div id="collapse-{{ block.id }}" class="accordion-collapse collapse {{ not block.collapsed|yesno:'show,' }}"
+       aria-labelledby="heading-{{ block.id }}">
+    <div class="accordion-body">
+      {{ block.content|safe }}
+    </div>
+  </div>
+</div>
