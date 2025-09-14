@@ -1,9 +1,0 @@
-{% load static %}
-<!-- Alert.tpl.html -->
-<div class="alert alert-{{ alert.type|default:'info' }} {{ 'alert-dismissible' if alert.dismissible }} fade show {{ alert.extra_class|default:'' }}" role="alert">
-  {% if alert.icon %}<i class="{{ alert.icon }} me-2"></i>{% endif %}
-  {{ alert.message|safe }}
-  {% if alert.dismissible %}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  {% endif %}
-</div>

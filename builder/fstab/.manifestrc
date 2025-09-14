@@ -1,0 +1,32 @@
+{
+  "env": {
+    "FARONIX_ROOT": "/srv/faronix"
+  },
+  "kind": "fstab",
+  "mounts": [
+    {
+      "source": "/home/faron/Public/faronix",
+      "target": "/home/faron/.bin/faronix",
+      "type": "none",
+      "options": "bind,rw",
+      "persist": true,
+      "readonly": false
+    },
+    {
+      "source": "/home/faron/Public/faronix",
+      "target": "/srv/faronix",
+      "type": "none",
+      "options": "bind,rw",
+      "persist": true,
+      "readonly": false
+    },
+    {
+      "source": "/opt/faronix",
+      "target": "/srv/faronix",
+      "type": "none",
+      "options": "bind, rw",
+      "persist": true,
+      "readonly": false
+    }
+  ]
+}

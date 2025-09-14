@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: faronix
+Version: 0.1.0
+Summary: Faronix Python tools and utilities
+Author-email: Faron <faron@example.com>
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: jinja2
+Requires-Dist: django-htmx
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: black; extra == "dev"

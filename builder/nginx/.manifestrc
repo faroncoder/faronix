@@ -1,0 +1,14 @@
+{
+  "env": {
+    "FARONIX_ROOT": "/srv/faronix",
+    "FARONIX_CONFIG": "/srv/faronix/_scripts/_config.py"
+  },
+  "sites": {
+    "serveport": 8000,
+    "server_name": "dj.faronix.ca",
+    "location": "/",
+    "path": "/opt/django/dj.faronix.ca"
+  },
+  "template_type": "django",
+  "kind": "nginx"
+}

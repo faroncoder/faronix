@@ -1,0 +1,17 @@
+{
+  "env": {
+    "FARONIX_ROOT": "/srv/faronix",
+    "FARONIX_CONFIG": "/srv/faronix/_scripts/_config.py"
+  },
+  "systemd": {
+    "service_name": "faronix-core.service",
+    "working_directory": "/srv/faronix",
+    "exec_start": "/srv/faronix/runtime/start.sh",
+    "restart": "on-failure"
+  },
+  "queue": "infra",
+  "nginx": {
+    "template": "tpl/faronix.conf.tpl",
+    "output": "/etc/nginx/conf.d/faronix.conf"
+  }
+}

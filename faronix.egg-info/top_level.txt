@@ -1,0 +1,11 @@
+_bin
+_old
+builder
+endpoint
+faronix
+generator
+manifest
+runtime
+scripts
+sysconf
+ver1

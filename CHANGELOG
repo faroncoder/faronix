@@ -1,8 +1,0 @@
-# Changelog
-
-## v1.0.0 (2025-??-??)
-- Initial stable release of Faronix
-- Added .manifestrc profile
-- Shell-native Conda / environment auto-activation
-- HTMX + Django scaffolding via manifest
-- Bootstrap / test scripts

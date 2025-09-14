@@ -1,8 +1,0 @@
-{
-  "version": "/home/faron/app_pwa/media/manifest/v2025-09-13",
-  "timestamp": "2025-09-13T02:46:17.772416+00:00",
-  "roles": {"admin": {"can_edit": true, "can_manage": true, "label": "Site Admin", "rank": 80}, "guest": {"can_edit": false, "can_manage": false, "label": "Public", "rank": 0}, "staff": {"can_edit": true, "can_manage": false, "label": "Team Member", "rank": 60}, "superadmin": {"can_edit": true, "can_manage": true, "label": "Platform Owner", "rank": 100}, "user": {"can_edit": false, "can_manage": false, "label": "Subscriber", "rank": 40}},
-  "features": {"edu_pro": ["record_video", "export_transcript", "dashboard"], "guest": [], "lifetime": ["record_video", "dashboard"], "team": ["team_dashboard", "member_invite", "audit_log"]},
-  "menus": {},
-  "snippets": {}
-}
